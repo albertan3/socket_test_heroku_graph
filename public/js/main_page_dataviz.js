@@ -16,19 +16,23 @@ var syncInputVal = function(msg){
 
 socket.on('make_purchase', function(msg){
 
+
+$("#your_feeback").append("<p >New purchase of Duty Free lipstick for $40 by 44 year old.</p>");
  //alert("make_purchase");
 
-  var data = [
+  /*var data = [
 			{ label: "Alchohol sales",  data: 10},
 			{ label: "Duty Free sales",  data: 60},
 			{ label: "Hotels",  data: 90},
 			{ label: "Car Rentals",  data: 70},
 			{ label: "Flight Tickets",  data: 80},
 			{ label: "Other",  data: 110}
-		];
+		];*/
+
+    var placeholder = $("#placeholder");
 			placeholder.unbind();
 
-			$.plot(placeholder, data, {
+			$.plot(placeholder, msg, {
 				series: {
 					pie: { 
 						show: true,

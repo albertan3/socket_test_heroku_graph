@@ -6,6 +6,15 @@ var PORT = process.env.PORT || 3000;
 var firstUserRTC_data ="";
 var secUserRTC_data ="";
 
+graphdata = [
+			{ label: "Alchohol sales",  data: 10},
+			{ label: "Duty Free sales",  data: 30},
+			{ label: "Hotels",  data: 90},
+			{ label: "Car Rentals",  data: 70},
+			{ label: "Flight Tickets",  data: 80},
+			{ label: "Other",  data: 110}
+		];
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/',function(req,res){
@@ -28,19 +37,12 @@ var availUsers ={"first_user":"avail", "sec_user":"avail"};
 io.on('connection', function(socket){
 //socket.broadcast.emit('hi');
   //Color
-  socket.on('sent_init_signal', function(msg){
-
-		firstUserRTC_data = msg.sent_init_signal;
-    //console.log('message: ' + msg);
-    if(msg){
-    //  console.log('sent_init_signal: (' + msg.sent_init_signal + ")");
-    }
-    io.emit('sent_init_signal',msg);
-  });//rgb\
 //get first user data to auto fill
 		socket.on('make_purchase', function(msg){
+      graphdata[1].data = graphdata[1].data+14;
 
-       io.emit('make_purchase', "make_purchase");
+       console.log("graphdata[1].data: "+graphdata[1].data);
+       io.emit('make_purchase', graphdata);
 
 		});
 
