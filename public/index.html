@@ -9,6 +9,10 @@
 
 	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+   <script src="js/main_page_dataviz.js"></script>
+
   <style type="text/css">
 
 	.demo-container {
@@ -19,9 +23,13 @@
 	#placeholder {
 		width: 550px;
     	height: 550px;
-      background:red;
+      background:gray;
 	}
-
+#placeholder_two {
+		width: 550px;
+    	height: 550px;
+      background:gray;
+	}
 	#menu {
 		position: absolute;
 		top: 20px;
@@ -86,47 +94,73 @@
   </head>
   <body>
 
-    <label>Your ID:</label><br/>
+    
+<div class="your_company">
 
-    <textarea id="yourId"></textarea><br/>
-    <label>Other ID:</label><br/>
-    <textarea id="otherId"></textarea>
-    <button id="connect">connect</button><br/>
+    <h1>Your Current Company Data:</h1><br/>
+ <div ><h2>Your average net profit per costomer is $70 per customer.</h2></div>
 
-    <label>Enter Message:</label><br/>
-    <textarea id="yourMessage"></textarea>
-    <button id="send">send</button>
-    <pre id="messages"></pre>
-
+        <div ><label>Your Current Company is 30% less profitable than the airline industry average.</label></div>
     <div class="demo-container">
           <div id="placeholder" class="demo-placeholder"></div>
     </div>
+       
+</div> <!--end your company-->
 
-   <script src="js/joongcam_socket.js"></script>
-   <script src="js/bundle_two.js" charset="utf-8"></script>
+   <!--<script src="js/bundle_two.js" charset="utf-8"></script>-->
+   
+<div class="comp_company">
+<h1>Your Competitors Company Data:</h1><br/>
+<div><h2>Your Competitors average net profit per costomer is $100 per customer.</h2></div>
+
+        <div ><label>Your should target more 25 year old female customers with expensive onflight cocktail drinks and luxury items.</label></div>
+    <div class="demo-container">
+          <div id="placeholder_two" class="demo-placeholder"></div>
+    </div> 
+
+        
+</div> <!--competitors company-->
 
    <script>
 
      function labelFormatter(label, series) {
-		return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-	}
+      return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+      }
 
 	//
 
 	function setCode(lines) {
 		$("#code").text(lines.join("\n"));
 	}
-     var data = [],
-			series = Math.floor(Math.random() * 6) + 3;
 
+      var data = [
+			{ label: "Alchohol sales",  data: 10},
+			{ label: "Duty Free sales",  data: 30},
+			{ label: "Hotels",  data: 90},
+			{ label: "Car Rentals",  data: 70},
+			{ label: "Flight Tickets",  data: 80},
+			{ label: "Other",  data: 110}
+		];
+
+  var data2 = [
+			{ label: "Alchohol sales",  data: 110},
+			{ label: "Duty Free sales",  data: 30},
+			{ label: "Hotels",  data: 90},
+			{ label: "Car Rentals",  data: 70},
+			{ label: "Flight Tickets",  data: 80},
+			{ label: "Other",  data: 110}
+		];
+
+/*
 		for (var i = 0; i < series; i++) {
 			data[i] = {
 				label: "Series" + (i + 1),
 				data: Math.floor(Math.random() * 100) + 1
 			}
-		}
+		}*/
 
      var placeholder = $("#placeholder");
+     var placeholdertwo = $("#placeholder_two");
 
    $(function() {
 
@@ -153,6 +187,53 @@
 				}
 			});
 
+      placeholdertwo.unbind();
+
+
+      	$.plot(placeholdertwo, data2, {
+				series: {
+					pie: { 
+						show: true,
+						radius: 1,
+						label: {
+							show: true,
+							radius: 3/4,
+							formatter: labelFormatter,
+							background: { 
+								opacity: 0.5,
+								color: "#000"
+							}
+						}
+					}
+				},
+				legend: {
+					show: false
+				}
+			});
+
+      setCode([
+				"$.plot('#placeholder_two', data, {",
+				"    series: {",
+				"        pie: { ",
+				"            show: true,",
+				"            radius: 1,",
+				"            label: {",
+				"                show: true,",
+				"                radius: 3/4,",
+				"                formatter: labelFormatter,",
+				"                background: { ",
+				"                    opacity: 0.5,",
+				"                    color: '#000'",
+				"                }",
+				"            }",
+				"        }",
+				"    },",
+				"    legend: {",
+				"        show: false",
+				"    }",
+				"});"
+			]);
+
 			setCode([
 				"$.plot('#placeholder', data, {",
 				"    series: {",
@@ -175,7 +256,9 @@
 				"    }",
 				"});"
 			]);
-		});
+
+
+		});//onload
    
    </script>
   </body>

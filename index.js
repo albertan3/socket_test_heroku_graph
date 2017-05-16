@@ -14,6 +14,13 @@ app.get('/',function(req,res){
 
 });
 
+
+app.get('/chatbot',function(req,res){
+	//res.send('<h1>Hello World</h1>');
+	res.sendFile(__dirname + '/public/chatbot.html');
+
+});
+
 // usernames which are currently connected to the chat
 var usernames = {};
 var availUsers ={"first_user":"avail", "sec_user":"avail"};
@@ -22,6 +29,7 @@ io.on('connection', function(socket){
 //socket.broadcast.emit('hi');
   //Color
   socket.on('sent_init_signal', function(msg){
+
 		firstUserRTC_data = msg.sent_init_signal;
     //console.log('message: ' + msg);
     if(msg){
@@ -30,10 +38,9 @@ io.on('connection', function(socket){
     io.emit('sent_init_signal',msg);
   });//rgb\
 //get first user data to auto fill
-		socket.on('get_firstUserRTC_data', function(msg){
+		socket.on('make_purchase', function(msg){
 
-       io.emit('get_firstUserRTC_data', firstUserRTC_data);
-
+       io.emit('make_purchase', "make_purchase");
 
 		});
 
