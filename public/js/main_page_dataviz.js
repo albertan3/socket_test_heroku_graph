@@ -18,7 +18,7 @@ socket.on('make_purchase', function(msg){
 
 
 $("#your_feeback").append("<p >New purchase of Duty Free lipstick for $40 by 44 year old.</p>");
- //alert("make_purchase");
+ 
 
   /*var data = [
 			{ label: "Alchohol sales",  data: 10},

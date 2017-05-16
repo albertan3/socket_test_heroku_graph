@@ -1,7 +1,7 @@
 var socket = io();
 
 socket.on('make_purchase', function(username){
-alert("Thank you for your purchase");
+//alert("Thank you for your purchase");
 });
 
 //make purchase
